@@ -82,9 +82,11 @@ a {
   </head>
   <body>
     <div class="logo">
+      <!--
       <a href="https://blockchaingold.games/">
-        <img src="https://blockchaingold.games/wp-content/uploads/2018/06/logo@2x.png" title="Blockchain Gold"/>
+         <img src="https://blockchaingold.games/wp-content/uploads/2018/06/logo@2x.png" title="Blockchain Gold"/>
       </a>
+      -->
       </div>
     <div class="container">
         <img src="https://media.giphy.com/media/vIDsZm5DMZ5Ha/giphy.gif" title="Sad Explorer."/>

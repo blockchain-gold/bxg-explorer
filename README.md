@@ -1,4 +1,3 @@
-![Blockchain Gold Logo](https://github.com/blockchain-gold/bxg-explorer/raw/master/public/img/bxg-logo.png)
 
 ## Blockchain Gold Explorer
 https://explorer.blockchaingold.games
