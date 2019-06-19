@@ -18,7 +18,8 @@ import CardStatus from '../component/Card/CardStatus';
 import WatchList from '../component/WatchList';
 import CardSeeSaw from '../component/Card/CardSeeSaw';
 
-class CoinSummary extends Component {
+class CoinSummary extends Component
+{
   static propTypes = {
     onSearch: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -28,7 +29,8 @@ class CoinSummary extends Component {
     txs: PropTypes.array.isRequired,
   };
 
-  render() {
+  render()
+  {
     const coin = this.props.coins && this.props.coins.length
       ? this.props.coins[0]
       : { diff: 0, netHash: 0 };
@@ -41,8 +43,10 @@ class CoinSummary extends Component {
       ? this.props.searches
       : this.props.searches.slice(0, 7);
 
-    const getCardHighlightedAddresses = () => {
-      if (!config.community) {
+    const getCardHighlightedAddresses = () =>
+    {
+      if (!config.community)
+      {
         return null;
       }
       return (

@@ -5,11 +5,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class Masternode extends Component {
+class Masternode extends Component
+{
   static propTypes = {
     getMNs: PropTypes.func.isRequired
   };
-  render() {
+  render()
+  {
     return (
       <MasternodesList title="Masternodes" isPaginationEnabled={true} getMNs={this.props.getMNs} />
     );
@@ -17,7 +19,8 @@ class Masternode extends Component {
 }
 
 const mapDispatch = dispatch => ({
-  getMNs: query => {
+  getMNs: query =>
+  {
     return Actions.getMNs(query);
   }
 });

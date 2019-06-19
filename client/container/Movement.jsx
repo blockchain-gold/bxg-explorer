@@ -12,14 +12,16 @@ import Select from '../component/Select';
 
 import { PAGINATION_PAGE_SIZE } from '../constants';
 
-class Movement extends Component {
+class Movement extends Component
+{
   static propTypes = {
     getTXs: PropTypes.func.isRequired,
     setTXs: PropTypes.func.isRequired,
     tx: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.debounce = null;
     this.state = {
@@ -32,34 +34,45 @@ class Movement extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getTXs();
   };
 
-  componentWillUnmount() {
-    if (this.debounce) {
+  componentWillUnmount()
+  {
+    if (this.debounce)
+    {
       clearTimeout(this.debounce);
       this.debounce = null;
     }
   };
 
-  getTXs = () => {
-    this.setState({ loading: true }, () => {
-      if (this.debounce) {
+  getTXs = () =>
+  {
+    this.setState({ loading: true }, () =>
+    {
+      if (this.debounce)
+      {
         clearTimeout(this.debounce);
       }
 
-      this.debounce = setTimeout(() => {
+      this.debounce = setTimeout(() =>
+      {
         this.props
           .getTXs({
             limit: this.state.size,
             skip: (this.state.page - 1) * this.state.size
           })
-          .then(({ pages, txs }) => {
-            if (this.debounce) {
-              this.setState({ pages, txs, loading: false }, () => {
+          .then(({ pages, txs }) =>
+          {
+            if (this.debounce)
+            {
+              this.setState({ pages, txs, loading: false }, () =>
+              {
                 if (txs.length
-                  && this.props.tx.blockHeight < txs[0].blockHeight) {
+                  && this.props.tx.blockHeight < txs[0].blockHeight)
+                {
                   this.props.setTXs(txs);
                 }
               });
@@ -74,10 +87,13 @@ class Movement extends Component {
 
   handleSize = size => this.setState({ size, page: 1 }, this.getTXs);
 
-  render() {
-    if (!!this.state.error) {
+  render()
+  {
+    if (!!this.state.error)
+    {
       return this.renderError(this.state.error);
-    } else if (this.state.loading) {
+    } else if (this.state.loading)
+    {
       return this.renderLoading();
     }
     const selectOptions = PAGINATION_PAGE_SIZE;

@@ -9,14 +9,16 @@ import CardBlock from '../component/Card/CardBlock';
 import CardBlockTXs from '../component/Card/CardBlockTXs';
 import HorizontalRule from '../component/HorizontalRule';
 
-class Block extends Component {
+class Block extends Component
+{
   static propTypes = {
     getBlock: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     tx: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       block: {},
@@ -26,41 +28,50 @@ class Block extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getBlock();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps)
+  {
     const { params: { hash } } = this.props.match;
-    if (prevProps.match.params.hash !== hash && !this.state.loading) {
+    if (prevProps.match.params.hash !== hash && !this.state.loading)
+    {
       this.getBlock();
     }
   };
 
-  getBlock = () => {
-    this.setState({ loading: true }, () => {
+  getBlock = () =>
+  {
+    this.setState({ loading: true }, () =>
+    {
       this.props
         .getBlock(this.props.match.params.hash)
-        .then(({ block, txs }) => {
+        .then(({ block, txs }) =>
+        {
           this.setState({ block, txs, loading: false });
         })
         .catch(error => this.setState({ error, loading: false }));
     });
   };
 
-  render() {
-    if (!!this.state.error) {
+  render()
+  {
+    if (!!this.state.error)
+    {
       return this.renderError(this.state.error);
-    } else if (this.state.loading) {
+    } else if (this.state.loading)
+    {
       return this.renderLoading();
     }
 
     return (
       <div>
         <HorizontalRule title="Block Info" />
-        <CardBlock block={ this.state.block } height={ this.props.tx.blockHeight } />
+        <CardBlock block={this.state.block} height={this.props.tx.blockHeight} />
         <HorizontalRule title="Block Transactions" />
-        <CardBlockTXs txs={ this.state.txs } />
+        <CardBlockTXs txs={this.state.txs} />
       </div>
     );
   };

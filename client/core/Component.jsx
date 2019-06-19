@@ -4,7 +4,8 @@ import React from 'react';
 import ErrorBlock from '../component/ErrorBlock';
 import Loading from '../component/Loading';
 
-export default class Component extends React.Component {
+export default class Component extends React.Component
+{
   /**
    * Format network hash power a second into:
    *  - TH
@@ -12,10 +13,12 @@ export default class Component extends React.Component {
    *  - MH
    *  - kH
    */
-  formatNetHash = (hash) => {
+  formatNetHash = (hash) =>
+  {
     const labels = ['H', 'kH', 'MH', 'GH', 'TH'];
     let idx = 0;
-    while (hash > 1000) {
+    while (hash > 1000)
+    {
       hash = hash / 1000;
       idx++;
     }
@@ -26,14 +29,15 @@ export default class Component extends React.Component {
   /**
    * Generate a random string.
    */
-  randomString = () => {
+  randomString = () =>
+  {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   };
 
   /**
    * Render the provided error for the component.
    */
-  renderError = (err) => (<ErrorBlock error={ err } />);
+  renderError = (err) => (<ErrorBlock error={err} />);
 
   /**
    * Render the loading indicator.

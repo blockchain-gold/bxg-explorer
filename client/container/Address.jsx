@@ -17,13 +17,15 @@ import MasternodesList from '../component/MasternodesList';
 
 import { PAGINATION_PAGE_SIZE } from '../constants';
 
-class Address extends Component {
+class Address extends Component
+{
   static propTypes = {
     getAddress: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       address: '',
@@ -40,23 +42,29 @@ class Address extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getAddress();
   };
 
-  componentDidUpdate() {
+  componentDidUpdate()
+  {
     if (!!this.state.address
-      && this.state.address !== this.props.match.params.hash && !this.state.loading) {
+      && this.state.address !== this.props.match.params.hash && !this.state.loading)
+    {
       this.getAddress();
     }
   };
 
-  getAddress = () => {
-    this.setState({ loading: true }, () => {
+  getAddress = () =>
+  {
+    this.setState({ loading: true }, () =>
+    {
       const address = this.props.match.params.hash;
       this.props
         .getAddress({ address })
-        .then(({ balance, received, txs, utxo, isMasternode }) => {
+        .then(({ balance, received, txs, utxo, isMasternode }) =>
+        {
           this.setState({
             address,
             balance,
@@ -74,22 +82,27 @@ class Address extends Component {
 
   handlePage = page => this.setState({ page: parseInt(page, 10) });
 
-  handleSize = size => this.setState({ size: parseInt(size, 10), page: 1 }, () => {
+  handleSize = size => this.setState({ size: parseInt(size, 10), page: 1 }, () =>
+  {
     this.setState({ pages: Math.ceil(this.state.txs.length / this.state.size) });
   });
 
-  getMasternodeDetails = () => {
-    if (!this.state.isMasternode) {
+  getMasternodeDetails = () =>
+  {
+    if (!this.state.isMasternode)
+    {
       return null;
     }
     return (
       <MasternodesList title="Masternode For Address" isPaginationEnabled={false} getMNs={this.props.getMNs} hideCols={["addr"]} />
     );
   }
-  getMasternodesAddressWidget = () => {
+  getMasternodesAddressWidget = () =>
+  {
     const address = this.props.match.params.hash;
     const masternodesAddressWidget = configUtils.getCommunityAddressWidgetConfig(address, "masternodesAddressWidget");
-    if (!masternodesAddressWidget) {
+    if (!masternodesAddressWidget)
+    {
       return null;
     }
 
@@ -99,10 +112,13 @@ class Address extends Component {
   }
 
 
-  render() {
-    if (!!this.state.error) {
+  render()
+  {
+    if (!!this.state.error)
+    {
       return this.renderError(this.state.error);
-    } else if (this.state.loading) {
+    } else if (this.state.loading)
+    {
       return this.renderLoading();
     }
     const selectOptions = PAGINATION_PAGE_SIZE;
@@ -148,14 +164,17 @@ class Address extends Component {
 
 const mapDispatch = (dispatch, ownProps) => ({
   getAddress: query => Actions.getAddress(query),
-  getMNs: query => {
+  getMNs: query =>
+  {
     query.hash = ownProps.match.params.hash; // Add current wallet address to the filtering of getMNs(). Look at server/handler/blockex.js getMasternodes()
     return Actions.getMNs(query);
   },
-  getMasternodesAddressWidget: query => {
+  getMasternodesAddressWidget: query =>
+  {
     const address = ownProps.match.params.hash;
     const masternodesAddressWidget = configUtils.getCommunityAddressWidgetConfig(address, "masternodesAddressWidget");
-    if (!masternodesAddressWidget) {
+    if (!masternodesAddressWidget)
+    {
       return null;
     }
     query.addresses = masternodesAddressWidget.addresses; // Add array of wallet addresses to the filtering of getMNs(). Look at server/handler/blockex.js getMasternodes()

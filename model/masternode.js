@@ -21,4 +21,4 @@ const Masternode = mongoose.model('Masternode', new mongoose.Schema({
   ver: { required: true, type: Number }
 }, { versionKey: false }), 'masternodes');
 
-module.exports =  Masternode;
+module.exports = Masternode;

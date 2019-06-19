@@ -23,4 +23,4 @@ const Block = mongoose.model('Block', new mongoose.Schema({
   ver: { required: true, type: Number }
 }, { versionKey: false }), 'blocks');
 
-module.exports =  Block;
+module.exports = Block;

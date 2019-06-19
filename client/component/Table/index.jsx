@@ -7,7 +7,8 @@ import { Table } from 'reactstrap';
 
 import TableHeader from './TableHeader';
 
-export default class TableWrapper extends Component {
+export default class TableWrapper extends Component
+{
   static defaultProps = {
     cols: [],
     data: [],
@@ -21,60 +22,69 @@ export default class TableWrapper extends Component {
     hasDivider: PropTypes.bool,
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
   };
 
-  componentWillUnmount() {
+  componentWillUnmount()
+  {
   };
 
-  getBody() {
+  getBody()
+  {
     const { data } = this.props;
     const keys = this.getKeys();
 
-    const rows = data.map((row, idx) => {
-      const cells = keys.map((col, i) => {
+    const rows = data.map((row, idx) =>
+    {
+      const cells = keys.map((col, i) =>
+      {
         return (
-          <td key={ i }>{ row[col] }</td>
+          <td key={i}>{row[col]}</td>
         )
       });
 
       return (
-        <tr key={ idx }>
-          { cells }
+        <tr key={idx}>
+          {cells}
         </tr>
       )
     })
 
     return (
       <tbody>
-        { rows }
+        {rows}
       </tbody>
     );
   }
 
-  getKeys() {
+  getKeys()
+  {
     const { cols } = this.props;
 
-    const keys = cols.map(col => {
+    const keys = cols.map(col =>
+    {
       return (typeof col === 'object') ? col.key : col;
     })
 
     return keys;
   }
 
-  render() {
+  render()
+  {
     const { props } = this;
 
-    if (!props.data.length) {
+    if (!props.data.length)
+    {
       return false;
     }
 
     return (
       <div className="table-wrapper">
         <div className="table-wrapper__shadow-margin">
-          <Table className={ `${ this.props.hasDivider ? 'table--has-divider' : '' } ${ this.props.className || 'animated fadeIn' }` }>
-            <TableHeader cols={ props.cols } />
-            { this.getBody() }
+          <Table className={`${this.props.hasDivider ? 'table--has-divider' : ''} ${this.props.className || 'animated fadeIn'}`}>
+            <TableHeader cols={props.cols} />
+            {this.getBody()}
           </Table>
         </div>
       </div>

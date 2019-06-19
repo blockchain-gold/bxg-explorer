@@ -1,6 +1,7 @@
 
 import { combineReducers } from 'redux';
-import {
+import
+{
   COIN,
   COINS,
   ERROR,
@@ -20,8 +21,10 @@ const coinInit = {
  * @param {Object} state The current or default state.
  * @param {Object} action The flux compatible action.
  */
-const coin = (state = coinInit, action) => {
-  if (action.type === COIN && action.payload) {
+const coin = (state = coinInit, action) =>
+{
+  if (action.type === COIN && action.payload)
+  {
     return { ...action.payload };
   }
   return state;
@@ -33,9 +36,11 @@ const coin = (state = coinInit, action) => {
  * @param {Object} state The current or default state.
  * @param {Object} action The flux compatible action.
  */
-const coins = (state = [], action) => {
-  if (action.type === COINS && action.payload) {
-    return [ ...action.payload ];
+const coins = (state = [], action) =>
+{
+  if (action.type === COINS && action.payload)
+  {
+    return [...action.payload];
   }
   return state;
 };
@@ -45,9 +50,11 @@ const coins = (state = [], action) => {
  * @param {Array} state The current or default list of transactions.
  * @param {Object} action The flux compatible action.
  */
-const txs = (state = [], action) => {
-  if (action.type === TXS && action.payload) {
-    return [ ...action.payload ];
+const txs = (state = [], action) =>
+{
+  if (action.type === TXS && action.payload)
+  {
+    return [...action.payload];
   }
   return state;
 };

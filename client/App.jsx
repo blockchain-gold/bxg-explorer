@@ -35,7 +35,8 @@ import Menu from './component/Menu';
 import Notification from './component/Notification';
 import SearchBar from './component/SearchBar';
 
-class App extends Component {
+class App extends Component
+{
   static propTypes = {
     // Dispatch
     getCoins: PropTypes.func.isRequired,
@@ -43,7 +44,8 @@ class App extends Component {
     getTXs: PropTypes.func.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
 
     this.state = {
@@ -54,42 +56,52 @@ class App extends Component {
     this.timer = { coins: null, txs: null };
   };
 
-  componentWillMount() {
+  componentWillMount()
+  {
     this.setState({ searches: searchHistory.get() });
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     promise.all([
-        this.props.getCoins({ limit: 12 }),
-        this.props.getTXs({ limit: 10 })
-      ])
-      .then(() => {
+      this.props.getCoins({ limit: 12 }),
+      this.props.getTXs({ limit: 10 })
+    ])
+      .then(() =>
+      {
         this.getCoins();
         this.getTXs();
         this.setState({ init: false });
       })
-      .catch(error => this.setState({ error }, () => {
+      .catch(error => this.setState({ error }, () =>
+      {
         this.getCoins();
         this.getTXs();
       }));
   };
 
-  componentWillUnmount() {
-    if (this.timer.coins) {
+  componentWillUnmount()
+  {
+    if (this.timer.coins)
+    {
       clearTimeout(this.timer.coins);
     }
-    if (this.timer.txs) {
+    if (this.timer.txs)
+    {
       clearTimeout(this.timer.txs);
     }
     this.timer = { coins: null, txs: null };
   };
 
-  getCoins = () => {
-    if (this.timer.coins) {
+  getCoins = () =>
+  {
+    if (this.timer.coins)
+    {
       clearTimeout(this.timer.coins);
     }
 
-    this.timer.coins = setTimeout(() => {
+    this.timer.coins = setTimeout(() =>
+    {
       this.props
         .getCoins({ limit: 12 })
         .then(this.getCoins)
@@ -97,12 +109,15 @@ class App extends Component {
     }, 30000); // 30 seconds
   };
 
-  getTXs = () => {
-    if (this.timer.txs) {
+  getTXs = () =>
+  {
+    if (this.timer.txs)
+    {
       clearTimeout(this.timer.txs);
     }
 
-    this.timer.txs = setTimeout(() => {
+    this.timer.txs = setTimeout(() =>
+    {
       this.props
         .getTXs({ limit: 10 })
         .then(this.getTXs)
@@ -110,13 +125,16 @@ class App extends Component {
     }, 30000); // 30 seconds
   };
 
-  handleRemove = (term) => {
+  handleRemove = (term) =>
+  {
     this.setState({ searches: searchHistory.del(term) });
   };
 
-  handleSearch = (term) => {
+  handleSearch = (term) =>
+  {
     // If term doesn't match then ignore.
-    if (!isTX(term) && !isBlock(term) && !isAddress(term)) {
+    if (!isTX(term) && !isBlock(term) && !isAddress(term))
+    {
       return;
     }
 
@@ -125,21 +143,27 @@ class App extends Component {
 
     // Setup path for search.
     let path = '/#/';
-    if (isAddress(term)) {
-      document.location.href = `/#/address/${ term }`;
-    } else if (!isNaN(term)) {
-      document.location.href = `/#/block/${ term }`;
-    } else {
+    if (isAddress(term))
+    {
+      document.location.href = `/#/address/${term}`;
+    } else if (!isNaN(term))
+    {
+      document.location.href = `/#/block/${term}`;
+    } else
+    {
       this.props
         .getIsBlock(term)
-        .then((is) => {
-          document.location.href = `/#/${ is ? 'block' : 'tx' }/${ term }`;
+        .then((is) =>
+        {
+          document.location.href = `/#/${is ? 'block' : 'tx'}/${term}`;
         });
     }
   };
 
-  render() {
-    if (this.state.init) {
+  render()
+  {
+    if (this.state.init)
+    {
       return (
         <Loading />
       );
@@ -148,33 +172,33 @@ class App extends Component {
     return (
       <HashRouter>
         <div className="page-wrapper">
-          <Menu onSearch={ this.handleSearch } />
+          <Menu onSearch={this.handleSearch} />
           <div className="content" id="body-content">
             <div className="content__wrapper">
               {/* <Notification /> */}
               <CoinSummary
-                onRemove={ this.handleRemove }
-                onSearch={ this.handleSearch }
-                searches={ this.state.searches.reverse() } />
+                onRemove={this.handleRemove}
+                onSearch={this.handleSearch}
+                searches={this.state.searches.reverse()} />
               <SearchBar
                 className="d-none d-md-block mb-3"
-                onSearch={ this.handleSearch } />
+                onSearch={this.handleSearch} />
               <div className="content__inner-wrapper">
                 <Switch>
-                  <Route exact path="/" component={ Overview } />
-                  <Route exact path="/address/:hash" component={ Address } />
-                  <Route exact path="/api" component={ API } />
-                  <Route exact path="/block/:hash" component={ Block } />
-                  <Route exact path="/coin" component={ CoinInfo } />
-                  <Route exact path="/faq" component={ FAQ } />
-                  <Route exact path="/masternode" component={ Masternode } />
-                  <Route exact path="/movement" component={ Movement } />
-                  <Route exact path="/peer" component={ Peer } />
-                  <Route exact path="/pos/:amount" component={ PoS } />
-                  <Route exact path="/statistics" component={ Statistics } />
-                  <Route exact path="/top" component={ Top100 } />
-                  <Route exact path="/tx/:hash" component={ TX } />
-                  <Route component={ Error404 } />
+                  <Route exact path="/" component={Overview} />
+                  <Route exact path="/address/:hash" component={Address} />
+                  <Route exact path="/api" component={API} />
+                  <Route exact path="/block/:hash" component={Block} />
+                  <Route exact path="/coin" component={CoinInfo} />
+                  <Route exact path="/faq" component={FAQ} />
+                  <Route exact path="/masternode" component={Masternode} />
+                  <Route exact path="/movement" component={Movement} />
+                  <Route exact path="/peer" component={Peer} />
+                  <Route exact path="/pos/:amount" component={PoS} />
+                  <Route exact path="/statistics" component={Statistics} />
+                  <Route exact path="/top" component={Top100} />
+                  <Route exact path="/tx/:hash" component={TX} />
+                  <Route component={Error404} />
                 </Switch>
               </div>
               <Footer />

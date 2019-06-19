@@ -12,13 +12,15 @@ import CardLinks from '../component/Card/CardLinks';
 import CardROI from '../component/Card/CardROI';
 import HorizontalRule from '../component/HorizontalRule';
 
-class CoinInfo extends Component {
+class CoinInfo extends Component
+{
   static propTypes = {
     coin: PropTypes.object.isRequired,
     getSupply: PropTypes.func.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       error: null,
@@ -26,15 +28,18 @@ class CoinInfo extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.props
       .getSupply()
       .then(supply => this.setState({ supply }))
       .catch(error => this.setState({ error }));
   };
 
-  render() {
-    if (this.state.error) {
+  render()
+  {
+    if (this.state.error)
+    {
       return this.renderError(this.state.error);
     }
 
@@ -52,14 +57,14 @@ class CoinInfo extends Component {
                 <CardExchanges />
               </div>
               <div className="col-sm-12 col-md-9">
-                <CardEarnings coin={ this.props.coin } />
+                <CardEarnings coin={this.props.coin} />
               </div>
             </div>
           </div>
           <div className="col-md-12 col-lg-4">
             <CardROI
-              coin={ this.props.coin }
-              supply={ this.state.supply } />
+              coin={this.props.coin}
+              supply={this.state.supply} />
           </div>
         </div>
       </div>

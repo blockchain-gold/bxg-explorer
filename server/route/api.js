@@ -33,4 +33,4 @@ router.get('/getblock', iquidus.getblock);
 router.get('/getrawtransaction', iquidus.getrawtransaction);
 router.get('/getnetworkhashps', iquidus.getnetworkhashps);
 
-module.exports =  router;
+module.exports = router;

@@ -7,24 +7,27 @@ import React from 'react';
  * Will use material icons to render.
  * @param {Object} props The props with the name.
  */
-const TableHeader = (props) => {
-    const cells = props.cols.map((col, idx) => {
-      if (typeof col === 'object') {
-        col = col.title;
-      }
-
-      return (
-        <th key={ idx } >{ col }</th>
-      )
-    });
+const TableHeader = (props) =>
+{
+  const cells = props.cols.map((col, idx) =>
+  {
+    if (typeof col === 'object')
+    {
+      col = col.title;
+    }
 
     return (
-      <thead>
-        <tr>
-          { cells }
-        </tr>
-      </thead>
-    );
+      <th key={idx} >{col}</th>
+    )
+  });
+
+  return (
+    <thead>
+      <tr>
+        {cells}
+      </tr>
+    </thead>
+  );
 };
 
 TableHeader.propTypes = {

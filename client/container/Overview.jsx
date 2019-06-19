@@ -13,43 +13,48 @@ import HorizontalRule from '../component/HorizontalRule';
 import Table from '../component/Table';
 import TransactionValue from '../component/Table/TransactionValue';
 
-class Overview extends Component {
+class Overview extends Component
+{
   static propTypes = {
     txs: PropTypes.array.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
 
     this.state = {
       cols: [
-        {title: 'Height', key: 'blockHeight'},
-        {title: 'Transaction Hash', key: 'txId'},
-        {title: 'Value', key: 'vout'},
+        { title: 'Height', key: 'blockHeight' },
+        { title: 'Transaction Hash', key: 'txId' },
+        { title: 'Value', key: 'vout' },
         'age',
         'recipients',
-        {title: 'Created', key: 'createdAt'},
+        { title: 'Created', key: 'createdAt' },
       ]
     };
   };
 
-  render() {
+  render()
+  {
     // Setup the list of transactions with age since created.
-    const txs = this.props.txs.map(tx => {
+    const txs = this.props.txs.map(tx =>
+    {
       const createdAt = moment(tx.createdAt).utc();
       const diffSeconds = moment().utc().diff(createdAt, 'seconds');
       let blockValue = 0.0;
-      if (tx.vout && tx.vout.length) {
+      if (tx.vout && tx.vout.length)
+      {
         tx.vout.forEach(vout => blockValue += vout.value);
       }
 
       return ({
         ...tx,
-        age: diffSeconds < 60 ? `${ diffSeconds } seconds` : createdAt.fromNow(true),
-        blockHeight: (<Link to={ `/block/${ tx.blockHeight }` }>{ tx.blockHeight }</Link>),
+        age: diffSeconds < 60 ? `${diffSeconds} seconds` : createdAt.fromNow(true),
+        blockHeight: (<Link to={`/block/${tx.blockHeight}`}>{tx.blockHeight}</Link>),
         createdAt: dateFormat(tx.createdAt),
         recipients: tx.vout.length,
-        txId: (<Link to={ `/tx/${ tx.txId }` }>{ tx.txId }</Link>),
+        txId: (<Link to={`/tx/${tx.txId}`}>{tx.txId}</Link>),
         vout: TransactionValue(tx, blockValue)
       });
     });
@@ -58,8 +63,8 @@ class Overview extends Component {
       <div>
         <HorizontalRule title="Latest Blocks" />
         <Table
-          cols={ this.state.cols }
-          data={ txs } />
+          cols={this.state.cols}
+          data={txs} />
       </div>
     );
   };

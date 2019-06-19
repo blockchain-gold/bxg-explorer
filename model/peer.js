@@ -21,4 +21,4 @@ const Peer = mongoose.model('Peer', new mongoose.Schema({
   ver: { required: true, type: Number }
 }, { versionKey: false }), 'peers');
 
-module.exports =  Peer;
+module.exports = Peer;

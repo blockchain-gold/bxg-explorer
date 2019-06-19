@@ -14,7 +14,7 @@ import Reducers from './core/Reducers';
 const store = createStore(Reducers);
 
 render(
-  (<Provider store={ store }>
+  (<Provider store={store}>
     <App />
   </Provider>),
   document.getElementById('react-app')

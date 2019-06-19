@@ -22,4 +22,4 @@ const Coin = mongoose.model('Coin', new mongoose.Schema({
   usd: { required: true, type: Number }
 }, { versionKey: false }), 'coins');
 
-module.exports =  Coin;
+module.exports = Coin;

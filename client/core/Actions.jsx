@@ -1,7 +1,8 @@
 
 import fetchWorker from '../../lib/fetch.worker';
 import promise from 'bluebird';
-import {
+import
+{
   COIN,
   COINS,
   ERROR,
@@ -13,18 +14,22 @@ import {
 const promises = new Map();
 const worker = new fetchWorker();
 
-worker.onerror = (err) => {
+worker.onerror = (err) =>
+{
   console.log(err);
   return err;
 };
 
-worker.onmessage = (ev) => {
+worker.onmessage = (ev) =>
+{
   const p = promises.get(ev.data.type);
-  if (!p) {
+  if (!p)
+  {
     return false;
   }
 
-  if (ev.data.error) {
+  if (ev.data.error)
+  {
     p.reject(ev.data.error);
     promises.delete(ev.data.type);
     return false;
@@ -34,36 +39,46 @@ worker.onmessage = (ev) => {
   return true;
 };
 
-const getFromWorker = (type, resolve, reject, query = null) => {
+const getFromWorker = (type, resolve, reject, query = null) =>
+{
   promises.set(type, { resolve, reject });
   worker.postMessage({ query, type });
   return true;
 };
 
-export const getAddress = (query) => {
-  return new promise((resolve, reject) => {
+export const getAddress = (query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('address', resolve, reject, query);
   });
 };
 
-export const getBlock = (query) => {
-  return new promise((resolve, reject) => {
+export const getBlock = (query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('block', resolve, reject, query);
   });
 };
 
-export const getCoinHistory = (dispatch, query) => {
-  return new promise((resolve, reject) => {
+export const getCoinHistory = (dispatch, query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker(
       'coins',
-      (payload) => {
-        if (payload && payload.length) {
+      (payload) =>
+      {
+        if (payload && payload.length)
+        {
           dispatch({ payload: payload[0], type: COIN });
         }
         dispatch({ payload, type: COINS });
         resolve(payload);
       },
-      (payload) => {
+      (payload) =>
+      {
         dispatch({ payload, type: ERROR });
         reject(payload);
       },
@@ -72,30 +87,40 @@ export const getCoinHistory = (dispatch, query) => {
   });
 };
 
-export const getCoinsWeek = () => {
-  return new promise((resolve, reject) => {
+export const getCoinsWeek = () =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('coins-week', resolve, reject);
   });
 };
 
-export const getIsBlock = (query) => {
-  return new promise((resolve, reject) => {
+export const getIsBlock = (query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('is-block', resolve, reject, query);
   });
 };
 
-export const getMNs = (query) => {
-  return new promise((resolve, reject) => {
+export const getMNs = (query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('mns', resolve, reject, query); // Resolves to getMNs in fetch.worker.js
   });
 };
 
-export const getPeers = () => {
-  return new promise((resolve, reject) => {
+export const getPeers = () =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker(
       'peers',
-      (peers) => {
-        resolve(peers.map((peer) => {
+      (peers) =>
+      {
+        resolve(peers.map((peer) =>
+        {
           const parts = peer.ip.split('.');
           parts[3] = 'XXX';
           peer.ip = parts.join('.');
@@ -107,36 +132,48 @@ export const getPeers = () => {
   });
 };
 
-export const getSupply = (dispatch) => {
-  return new promise((resolve, reject) => {
+export const getSupply = (dispatch) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('supply', resolve, reject);
   });
 };
 
-export const getTop100 = () => {
-  return new promise((resolve, reject) => {
+export const getTop100 = () =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('top-100', resolve, reject);
   });
 };
 
-export const getTX = (query) => {
-  return new promise((resolve, reject) => {
+export const getTX = (query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('tx', resolve, reject, query);
   });
 };
 
-export const getTXLatest = (dispatch, query) => {
-  return new promise((resolve, reject) => {
+export const getTXLatest = (dispatch, query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker(
       'txs-latest',
-      (payload) => {
-        if (dispatch) {
+      (payload) =>
+      {
+        if (dispatch)
+        {
           dispatch({ payload, type: TXS });
         }
         resolve(payload);
       },
-      (payload) => {
-        if (dispatch) {
+      (payload) =>
+      {
+        if (dispatch)
+        {
           dispatch({ payload, type: ERROR });
         }
         reject(payload);
@@ -146,18 +183,24 @@ export const getTXLatest = (dispatch, query) => {
   });
 };
 
-export const getTXs = (dispatch, query) => {
-  return new promise((resolve, reject) => {
+export const getTXs = (dispatch, query) =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker(
       'txs',
-      (payload) => {
-        if (dispatch) {
+      (payload) =>
+      {
+        if (dispatch)
+        {
           dispatch({ payload, type: TXS });
         }
         resolve(payload);
       },
-      (payload) => {
-        if (dispatch) {
+      (payload) =>
+      {
+        if (dispatch)
+        {
           dispatch({ payload, type: ERROR });
         }
         reject(payload);
@@ -167,21 +210,26 @@ export const getTXs = (dispatch, query) => {
   });
 };
 
-export const getTXsWeek = () => {
-  return new promise((resolve, reject) => {
+export const getTXsWeek = () =>
+{
+  return new promise((resolve, reject) =>
+  {
     return getFromWorker('txs-week', resolve, reject);
   });
 };
 
-export const setTXs = (dispatch, txs) => {
+export const setTXs = (dispatch, txs) =>
+{
   dispatch({ payload: txs, type: TXS });
 };
 
-export const setWatch = (dispatch, term) => {
+export const setWatch = (dispatch, term) =>
+{
   dispatch({ payload: term, type: WATCH_ADD });
 };
 
-export const removeWatch = (dispatch, term) => {
+export const removeWatch = (dispatch, term) =>
+{
   dispatch({ payload: term, type: WATCH_REMOVE });
 };
 

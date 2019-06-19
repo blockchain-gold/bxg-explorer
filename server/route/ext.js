@@ -11,4 +11,4 @@ router.get('/getaddress/:hash', iquidus.getaddress);
 router.get('/getbalance/:hash', iquidus.getbalance);
 router.get('/getlasttxs', iquidus.getlasttxs);
 
-module.exports =  router;
+module.exports = router;

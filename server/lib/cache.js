@@ -9,9 +9,11 @@ const moment = require('moment');
 
 let cacheData = {};
 let cacheUnixTimestamps = {};
-const getFromCache = async (cacheName, expiryUnixTimestamp, callback) => {
+const getFromCache = async (cacheName, expiryUnixTimestamp, callback) =>
+{
   const currentUnixTimestamp = moment().utc().unix();
-  if (!cacheData[cacheName] || cacheUnixTimestamps[cacheName] < currentUnixTimestamp) {
+  if (!cacheData[cacheName] || cacheUnixTimestamps[cacheName] < currentUnixTimestamp)
+  {
     cacheData[cacheName] = await callback();
     cacheUnixTimestamps[cacheName] = expiryUnixTimestamp;
   }
@@ -19,6 +21,6 @@ const getFromCache = async (cacheName, expiryUnixTimestamp, callback) => {
 };
 
 
-module.exports =  {
+module.exports = {
   getFromCache
 };

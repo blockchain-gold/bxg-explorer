@@ -8,12 +8,14 @@ import React from 'react';
 import HorizontalRule from '../component/HorizontalRule';
 import Table from '../component/Table';
 
-class Peer extends Component {
+class Peer extends Component
+{
   static propTypes = {
     getPeers: PropTypes.func.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       cols: [
@@ -27,17 +29,21 @@ class Peer extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.props
       .getPeers()
       .then(peers => this.setState({ peers, loading: false }))
       .catch(error => this.setState({ error, loading: false }));
   };
 
-  render() {
-    if (!!this.state.error) {
+  render()
+  {
+    if (!!this.state.error)
+    {
       return this.renderError(this.state.error);
-    } else if (this.state.loading) {
+    } else if (this.state.loading)
+    {
       return this.renderLoading();
     }
 
@@ -45,18 +51,18 @@ class Peer extends Component {
       <div>
         <HorizontalRule title="Connections" />
         <Table
-          cols={ this.state.cols }
-          data={ this.state.peers.map(peer => ({
+          cols={this.state.cols}
+          data={this.state.peers.map(peer => ({
             ...peer,
             ip: (
               <div>
                 <img
                   className="flag"
-                  src={ `/img/flag/${ peer.countryCode ? peer.countryCode.toLowerCase() : 'xx' }.gif` }
-                  title={ peer.country } /> { peer.ip }
+                  src={`/img/flag/${peer.countryCode ? peer.countryCode.toLowerCase() : 'xx'}.gif`}
+                  title={peer.country} /> {peer.ip}
               </div>
             )
-          })) } />
+          }))} />
       </div>
     );
   };

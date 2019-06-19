@@ -17,8 +17,8 @@ const utxoSchema = new mongoose.Schema({
 }, { versionKey: false });
 
 // Add coumpound index: address_blockHeight
-utxoSchema.index({ address: 1, blockHeight: 1  });
+utxoSchema.index({ address: 1, blockHeight: 1 });
 
 const UTXO = mongoose.model('UTXO', utxoSchema, 'utxo');
 
-module.exports =  UTXO;
+module.exports = UTXO;

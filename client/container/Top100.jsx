@@ -10,7 +10,8 @@ import React from 'react';
 import HorizontalRule from '../component/HorizontalRule';
 import Table from '../component/Table';
 
-class Top100 extends Component {
+class Top100 extends Component
+{
   static defaultProps = {
     coin: {}
   };
@@ -20,7 +21,8 @@ class Top100 extends Component {
     getTop100: PropTypes.func.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       cols: [
@@ -33,25 +35,27 @@ class Top100 extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.props.getTop100().then(wallets => this.setState({ wallets }));
   };
 
-  render() {
+  render()
+  {
     return (
       <div>
         <HorizontalRule title="Top 100" />
         <Table
-          cols={ this.state.cols }
-          data={ this.state.wallets.map((wallet, idx) => ({
+          cols={this.state.cols}
+          data={this.state.wallets.map((wallet, idx) => ({
             ...wallet,
             address: (
-              <Link to={ `/address/${ wallet.address }` }>{ wallet.address }</Link>
+              <Link to={`/address/${wallet.address}`}>{wallet.address}</Link>
             ),
             index: idx + 1,
             percent: numeral((wallet.value / this.props.coin.supply) * 100.0).format('0,0.00'),
             value: numeral(wallet.value).format('0,0.0000')
-          })) } />
+          }))} />
       </div>
     );
   };

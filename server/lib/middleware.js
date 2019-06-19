@@ -10,7 +10,8 @@ const timeout = require('connect-timeout');
  * Will add middleware to the express app.
  * @param {Object} app The express app object.
  */
-const middleware = (app) => {
+const middleware = (app) =>
+{
   app.use(logger('dev'));
   app.use(timeout(config.api.timeout));
   app.use(cors());
@@ -31,4 +32,4 @@ const middleware = (app) => {
 
 };
 
-module.exports =  middleware;
+module.exports = middleware;

@@ -46,7 +46,8 @@ const txSchema = new mongoose.Schema({
  * Helper method to return vout value for tx.
  */
 txSchema.virtual('value')
-  .get(() => {
+  .get(() =>
+  {
     return this.vout.reduce((acc, vo) => acc + vo.value, 0.0);
   });
 
@@ -60,4 +61,4 @@ txSchema.virtual('value')
  */
 const TX = mongoose.model('TX', txSchema, 'txs');
 
-module.exports =  TX;
+module.exports = TX;

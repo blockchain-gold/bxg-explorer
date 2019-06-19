@@ -9,13 +9,15 @@ import React from 'react';
 import HorizontalRule from '../component/HorizontalRule';
 import Select from '../component/Select';
 
-class PoS extends Component {
+class PoS extends Component
+{
   static propTypes = {
     coin: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor(props)
+  {
     super(props);
     this.state = {
       amount: 0.0,
@@ -25,12 +27,15 @@ class PoS extends Component {
     };
   };
 
-  componentDidMount() {
+  componentDidMount()
+  {
     this.getAmount();
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.amount !== prevProps.match.params.amount) {
+  componentDidUpdate(prevProps)
+  {
+    if (this.props.match.params.amount !== prevProps.match.params.amount)
+    {
       this.setState({
         mn: 0.0,
         mns: 'None',
@@ -39,21 +44,26 @@ class PoS extends Component {
     }
   };
 
-  getAmount() {
+  getAmount()
+  {
     const { params: { amount } } = this.props.match;
-    if (!!amount && !isNaN(amount) && amount > 0) {
+    if (!!amount && !isNaN(amount) && amount > 0)
+    {
       const { mn, pos } = this.getRewardSplit(amount);
       this.setState({ amount, mn, pos });
-    } else {
+    } else
+    {
       this.setState({ error: 'Please provide an amount for staking calculations.' });
     }
   };
 
-  getRewardSplit = (amount) => {
+  getRewardSplit = (amount) =>
+  {
     let mn = 0;
     let pos = amount;
 
-    if (this.state.mns !== 'None') {
+    if (this.state.mns !== 'None')
+    {
       mn = this.state.mns * blockchain.mncoins;
       pos = amount - mn;
     }
@@ -61,43 +71,49 @@ class PoS extends Component {
     return { mn, pos };
   };
 
-  getRewardHours = (pos) => {
-    if (!pos || pos < 0) {
+  getRewardHours = (pos) =>
+  {
+    if (!pos || pos < 0)
+    {
       return 0.0;
     }
 
     return (blockchain.mncoins / pos) * this.props.coin.avgMNTime;
   };
 
-  renderMasternodeCount = () => {
+  renderMasternodeCount = () =>
+  {
     const mns = Math.floor(this.state.amount / blockchain.mncoins);
     const options = [];
-    for (let i = 0; i <= mns; i++) {
+    for (let i = 0; i <= mns; i++)
+    {
       options.push({ label: !i ? 'None' : i, value: !i ? 'None' : i });
     }
 
     return (
       <div
-        style={ this.state.mns < 1
+        style={this.state.mns < 1
           ? { marginBottom: 5, marginTop: -7 }
           : { marginBottom: 5, marginTop: -9 }
         }>
         <Select
-          onChange={ v => this.setState({ mns: parseInt(v, 10) || 'None' }, this.getAmount) }
-          selectedValue={ this.state.mns }
-          options={ options } />
+          onChange={v => this.setState({ mns: parseInt(v, 10) || 'None' }, this.getAmount)}
+          selectedValue={this.state.mns}
+          options={options} />
       </div>
     );
   };
 
-  getX = () => {
+  getX = () =>
+  {
     const subsidy = blockchain.getSubsidy(this.props.coin.blocks + 1);
     const mnSubsidy = blockchain.getMNSubsidy(this.props.coin.blocks + 1);
     const posSubsidy = subsidy - mnSubsidy;
 
     let pos = this.state.amount;
     let mn = 0.0;
-    if (this.state.mns !== 'None') {
+    if (this.state.mns !== 'None')
+    {
       mn = this.state.mns * blockchain.mncoins;
       pos -= mn;
     }
@@ -113,19 +129,24 @@ class PoS extends Component {
     }
   };
 
-  getDay = () => {
+  getDay = () =>
+  {
     const x = this.getX();
 
-    if (x.mnHours !== 24.0 && x.mnHours > 0) {
+    if (x.mnHours !== 24.0 && x.mnHours > 0)
+    {
       x.mnSubsidy = (24.0 / x.mnHours) * x.mnSubsidy;
-    } else if (x.mnHours <= 0) {
+    } else if (x.mnHours <= 0)
+    {
       x.mnSubsidy = 0.0;
     }
     x.mnHours = 24.0;
 
-    if (x.posHours !== 24.0 && x.posHours > 0) {
+    if (x.posHours !== 24.0 && x.posHours > 0)
+    {
       x.posSubsidy = (24.0 / x.posHours) * x.posSubsidy;
-    } else if (x.posHours <= 0) {
+    } else if (x.posHours <= 0)
+    {
       x.posSubsidy = 0.0;
     }
     x.posHours = 24.0;
@@ -133,7 +154,8 @@ class PoS extends Component {
     return x;
   };
 
-  getWeek = () => {
+  getWeek = () =>
+  {
     const x = this.getDay();
 
     x.mnHours *= 7;
@@ -145,7 +167,8 @@ class PoS extends Component {
     return x;
   };
 
-  getMonth = () => {
+  getMonth = () =>
+  {
     const x = this.getDay();
 
     x.mnHours *= 30;
@@ -157,8 +180,10 @@ class PoS extends Component {
     return x;
   };
 
-  render() {
-    if (!!this.state.error) {
+  render()
+  {
+    if (!!this.state.error)
+    {
       return this.renderError(this.state.error);
     }
 
@@ -168,7 +193,8 @@ class PoS extends Component {
     const vMonth = this.getMonth();
 
     let mns = 0.0;
-    if (this.state.mns !== 'None') {
+    if (this.state.mns !== 'None')
+    {
       mns = this.state.mns;
     }
 
@@ -185,25 +211,25 @@ class PoS extends Component {
             <b>Block Subsidy:</b>
           </div>
           <div className="col-sm-8">
-            { numeral(vX.subsidy).format('0,0.0000') } BWK
+            {numeral(vX.subsidy).format('0,0.0000')} BWK
           </div>
           <div className="col-sm-4">
             <b>PoS:</b>
           </div>
           <div className="col-sm-8">
-            { numeral(vX.posSubsidy).format('0,0.0000') } BWK
+            {numeral(vX.posSubsidy).format('0,0.0000')} BWK
           </div>
           <div className="col-sm-4">
             <b>Masternode:</b>
           </div>
           <div className="col-sm-8">
-            { numeral(vX.mnSubsidy).format('0,0.0000') } BWK
+            {numeral(vX.mnSubsidy).format('0,0.0000')} BWK
           </div>
           <div className="col-sm-4">
             <b>Calculation Amount:</b>
           </div>
           <div className="col-sm-8">
-            { numeral(this.state.amount).format('0,0.0000') } BWK
+            {numeral(this.state.amount).format('0,0.0000')} BWK
           </div>
         </div>
         <hr />
@@ -213,7 +239,7 @@ class PoS extends Component {
             Masternode(s):
           </div>
           <div className="col-sm-12 col-md-2">
-            { this.renderMasternodeCount() }
+            {this.renderMasternodeCount()}
           </div>
           <div className="col-sm-12 col-md-2"></div>
           <div className="col-sm-12 col-md-2"></div>
@@ -239,7 +265,7 @@ class PoS extends Component {
             Masternode Amount (BWK):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.mn).format('0,0.0000') }
+            {numeral(vX.mn).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2"></div>
           <div className="col-sm-12 col-md-2"></div>
@@ -250,7 +276,7 @@ class PoS extends Component {
             Masternode Reward Interval (Hours):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.mnHours).format('0,0.00') }
+            {numeral(vX.mnHours).format('0,0.00')}
           </div>
           <div className="col-sm-12 col-md-2"></div>
           <div className="col-sm-12 col-md-2"></div>
@@ -261,16 +287,16 @@ class PoS extends Component {
             Masternode Reward (BWK):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.mnSubsidy * mns).format('0,0.0000') }
+            {numeral(vX.mnSubsidy * mns).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vDay.mnSubsidy * mns).format('0,0.0000') }
+            {numeral(vDay.mnSubsidy * mns).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vWeek.mnSubsidy * mns).format('0,0.0000') }
+            {numeral(vWeek.mnSubsidy * mns).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vMonth.mnSubsidy * mns).format('0,0.0000') }
+            {numeral(vMonth.mnSubsidy * mns).format('0,0.0000')}
           </div>
         </div>
         <br />
@@ -279,7 +305,7 @@ class PoS extends Component {
             PoS Amount (BWK):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.pos).format('0,0.0000') }
+            {numeral(vX.pos).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2"></div>
           <div className="col-sm-12 col-md-2"></div>
@@ -290,7 +316,7 @@ class PoS extends Component {
             PoS Reward Interval (Hours):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.posHours).format('0,0.00') }
+            {numeral(vX.posHours).format('0,0.00')}
           </div>
           <div className="col-sm-12 col-md-2"></div>
           <div className="col-sm-12 col-md-2"></div>
@@ -301,16 +327,16 @@ class PoS extends Component {
             PoS Reward (BWK):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.posSubsidy).format('0,0.0000') }
+            {numeral(vX.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vDay.posSubsidy).format('0,0.0000') }
+            {numeral(vDay.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vWeek.posSubsidy).format('0,0.0000') }
+            {numeral(vWeek.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vMonth.posSubsidy).format('0,0.0000') }
+            {numeral(vMonth.posSubsidy).format('0,0.0000')}
           </div>
         </div>
         <hr />
@@ -320,16 +346,16 @@ class PoS extends Component {
             Total Amount (BWK):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vX.mnSubsidy * mns + vX.posSubsidy).format('0,0.0000') }
+            {numeral(vX.mnSubsidy * mns + vX.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vDay.mnSubsidy * mns + vDay.posSubsidy).format('0,0.0000') }
+            {numeral(vDay.mnSubsidy * mns + vDay.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vWeek.mnSubsidy * mns + vWeek.posSubsidy).format('0,0.0000') }
+            {numeral(vWeek.mnSubsidy * mns + vWeek.posSubsidy).format('0,0.0000')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral(vMonth.mnSubsidy * mns + vMonth.posSubsidy).format('0,0.0000') }
+            {numeral(vMonth.mnSubsidy * mns + vMonth.posSubsidy).format('0,0.0000')}
           </div>
         </div>
         <div className="row">
@@ -337,16 +363,16 @@ class PoS extends Component {
             Total Amount (USD):
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral((vX.mnSubsidy * mns + vX.posSubsidy) * this.props.coin.usd).format('$0,0.00') }
+            {numeral((vX.mnSubsidy * mns + vX.posSubsidy) * this.props.coin.usd).format('$0,0.00')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral((vDay.mnSubsidy * mns + vDay.posSubsidy) * this.props.coin.usd).format('$0,0.00') }
+            {numeral((vDay.mnSubsidy * mns + vDay.posSubsidy) * this.props.coin.usd).format('$0,0.00')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral((vWeek.mnSubsidy * mns + vWeek.posSubsidy) * this.props.coin.usd).format('$0,0.00') }
+            {numeral((vWeek.mnSubsidy * mns + vWeek.posSubsidy) * this.props.coin.usd).format('$0,0.00')}
           </div>
           <div className="col-sm-12 col-md-2">
-            { numeral((vMonth.mnSubsidy * mns + vMonth.posSubsidy) * this.props.coin.usd).format('$0,0.00') }
+            {numeral((vMonth.mnSubsidy * mns + vMonth.posSubsidy) * this.props.coin.usd).format('$0,0.00')}
           </div>
         </div>
       </div>

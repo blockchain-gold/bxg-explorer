@@ -12,4 +12,4 @@ const Rich = mongoose.model('Rich', new mongoose.Schema({
   value: { default: 0.0, index: true, required: true, type: Number }
 }, { versionKey: false }), 'rich');
 
-module.exports =  Rich;
+module.exports = Rich;
