@@ -79,7 +79,7 @@ installBulwark () {
     rm -rf /tmp/blockchaingold
     mkdir -p /home/explorer/.blockchaingold
     cat > /home/explorer/.blockchaingold/blockchaingold.conf << EOL
-rpcport=13412
+rpcport=13512
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
 daemon=1
@@ -121,7 +121,7 @@ const config = {
   },
   'coinMarketCap': {
     'api': 'http://api.coinmarketcap.com/v1/ticker/',
-    'ticker': 'blockchaingold'
+    'ticker': 'bxg'
   },
   'db': {
     'host': '127.0.0.1',
@@ -135,7 +135,7 @@ const config = {
   },
   'rpc': {
     'host': '127.0.0.1',
-    'port': '52544',
+    'port': '13512',
     'user': '$rpcuser',
     'pass': '$rpcpassword',
     'timeout': 12000, // 12 seconds
@@ -171,7 +171,7 @@ clear
 
 # Variables
 echo "Setting up variables..."
-bxglink=`curl -s https://api.github.com/repos/blockchaingold-crypto/blockchaingold/releases/latest | grep browser_download_url | grep linux64 | cut -d '"' -f 4`
+bxglink=`curl -s https://api.github.com/repos/blockchain-gold/bxg-wallet/releases/latest | grep browser_download_url | grep linux64 | cut -d '"' -f 4`
 rpcuser=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')
 rpcpassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32 ; echo '')
 echo "Repo: $bxglink"
