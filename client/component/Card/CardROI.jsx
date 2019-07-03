@@ -33,7 +33,7 @@ const CardROI = ({ coin, supply }) =>
       </div>
       <div className="mb-3">
         <div className="h3">
-          {numeral(supply ? supply.t : 0.0).format('0,0.0000')} BWK
+          {numeral(supply ? supply.t : 0.0).format('0,0.0000')} BxG
         </div>
         <div className="h5">
           Coin Supply (Total)
@@ -41,7 +41,7 @@ const CardROI = ({ coin, supply }) =>
       </div>
       <div className="mb-3">
         <div className="h3">
-          {numeral(supply ? supply.c - (mns * mncoins) : 0.0).format('0,0.0000')} BWK
+          {numeral(supply ? supply.c - (mns * mncoins) : 0.0).format('0,0.0000')} BxG
         </div>
         <div className="h5">
           Coin Supply (Circulating)
@@ -65,7 +65,7 @@ const CardROI = ({ coin, supply }) =>
       </div>
       <div className="mb-3">
         <div className="h3">
-          {numeral(mns * mncoins).format('0,0.0000')} BWK
+          {numeral(mns * mncoins).format('0,0.0000')} BxG
         </div>
         <div className="h5">
           Coins Locked

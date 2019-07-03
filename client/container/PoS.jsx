@@ -211,25 +211,25 @@ class PoS extends Component
             <b>Block Subsidy:</b>
           </div>
           <div className="col-sm-8">
-            {numeral(vX.subsidy).format('0,0.0000')} BWK
+            {numeral(vX.subsidy).format('0,0.0000')} BxG
           </div>
           <div className="col-sm-4">
             <b>PoS:</b>
           </div>
           <div className="col-sm-8">
-            {numeral(vX.posSubsidy).format('0,0.0000')} BWK
+            {numeral(vX.posSubsidy).format('0,0.0000')} BxG
           </div>
           <div className="col-sm-4">
             <b>Masternode:</b>
           </div>
           <div className="col-sm-8">
-            {numeral(vX.mnSubsidy).format('0,0.0000')} BWK
+            {numeral(vX.mnSubsidy).format('0,0.0000')} BxG
           </div>
           <div className="col-sm-4">
             <b>Calculation Amount:</b>
           </div>
           <div className="col-sm-8">
-            {numeral(this.state.amount).format('0,0.0000')} BWK
+            {numeral(this.state.amount).format('0,0.0000')} BxG
           </div>
         </div>
         <hr />
@@ -262,7 +262,7 @@ class PoS extends Component
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            Masternode Amount (BWK):
+            Masternode Amount (BxG):
           </div>
           <div className="col-sm-12 col-md-2">
             {numeral(vX.mn).format('0,0.0000')}
@@ -284,7 +284,7 @@ class PoS extends Component
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            Masternode Reward (BWK):
+            Masternode Reward (BxG):
           </div>
           <div className="col-sm-12 col-md-2">
             {numeral(vX.mnSubsidy * mns).format('0,0.0000')}
@@ -302,7 +302,7 @@ class PoS extends Component
         <br />
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            PoS Amount (BWK):
+            PoS Amount (BxG):
           </div>
           <div className="col-sm-12 col-md-2">
             {numeral(vX.pos).format('0,0.0000')}
@@ -324,7 +324,7 @@ class PoS extends Component
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            PoS Reward (BWK):
+            PoS Reward (BxG):
           </div>
           <div className="col-sm-12 col-md-2">
             {numeral(vX.posSubsidy).format('0,0.0000')}
@@ -343,7 +343,7 @@ class PoS extends Component
         <br />
         <div className="row">
           <div className="col-sm-12 col-md-4">
-            Total Amount (BWK):
+            Total Amount (BxG):
           </div>
           <div className="col-sm-12 col-md-2">
             {numeral(vX.mnSubsidy * mns + vX.posSubsidy).format('0,0.0000')}

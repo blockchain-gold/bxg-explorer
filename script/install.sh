@@ -42,11 +42,11 @@ server {
 
     location / {
         proxy_pass http://127.0.0.1:3000;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade \$http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host \$host;
-            proxy_cache_bypass \$http_upgrade;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
     }
 }
 EOL
@@ -113,32 +113,32 @@ installBlockExplorer () {
     yarn install
     cat > /home/bxg/blockexplorer/config.js << EOL
 const config = {
-  'api': {
-    'host': 'https://explorer.blockchaingold.games',
-    'port': '3000',
-    'prefix': '/api',
-    'timeout': '180s'
+  api: {
+    host: 'https://explorer.blockchaingold.games',
+    port: '3000',
+    prefix: '/api',
+    timeout: '180s'
   },
-  'coinMarketCap': {
-    'api': 'http://api.coinmarketcap.com/v1/ticker/',
-    'ticker': 'bxg'
+  coinMarketCap: {
+    api: 'http://api.coinmarketcap.com/v1/ticker/',
+    ticker: 'bxg'
   },
-  'db': {
-    'host': '127.0.0.1',
-    'port': '27017',
-    'name': 'blockexplorer',
-    'user': '$rpcuser',
-    'pass': '$rpcpassword'
+  db: {
+    host: '127.0.0.1',
+    port: '27017',
+    name: 'blockexplorer',
+    user: '$rpcuser',
+    pass: '$rpcpassword'
   },
-  'freegeoip': {
-    'api': 'https://extreme-ip-lookup.com/json/'
+  freegeoip: {
+    api: 'https://extreme-ip-lookup.com/json/'
   },
-  'rpc': {
-    'host': '127.0.0.1',
-    'port': '13512',
-    'user': '$rpcuser',
-    'pass': '$rpcpassword',
-    'timeout': 12000, // 12 seconds
+  rpc: {
+    host: '127.0.0.1',
+    port: '13512',
+    user: '$rpcuser',
+    pass: '$rpcpassword',
+    timeout: 12000, // 12 seconds
   }
 };
 
