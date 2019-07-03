@@ -10,7 +10,7 @@ installNodeAndYarn () {
     sudo apt-get install -y yarn
     sudo npm install -g pm2
     sudo ln -s /usr/bin/nodejs /usr/bin/node
-    sudo chown -R explorer:explorer /home/explorer/.config
+    sudo chown -R explorer:explorer /home/bxg/.config
     clear
 }
 
@@ -68,7 +68,7 @@ installMongo () {
     clear
 }
 
-installBulwark () {
+installWallet () {
     echo "Installing Blockchain Gold..."
     mkdir -p /tmp/blockchaingold
     cd /tmp/blockchaingold
@@ -77,8 +77,8 @@ installBulwark () {
     sudo mv ./bin/* /usr/local/bin
     cd
     rm -rf /tmp/blockchaingold
-    mkdir -p /home/explorer/.blockchaingold
-    cat > /home/explorer/.blockchaingold/blockchaingold.conf << EOL
+    mkdir -p /home/bxg/.blockchaingold
+    cat > /home/bxg/.blockchaingold/blockchaingold.conf << EOL
 rpcport=13512
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword
@@ -92,9 +92,9 @@ After=network.target
 [Service]
 Type=forking
 User=explorer
-WorkingDirectory=/home/explorer
-ExecStart=/home/explorer/bin/blockchaingoldd -datadir=/home/explorer/.blockchaingold
-ExecStop=/home/explorer/bin/blockchaingold-cli -datadir=/home/explorer/.blockchaingold stop
+WorkingDirectory=/home/bxg
+ExecStart=/home/bxg/bin/blockchaingoldd -datadir=/home/bxg/.blockchaingold
+ExecStop=/home/bxg/bin/blockchaingold-cli -datadir=/home/bxg/.blockchaingold stop
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
@@ -108,10 +108,10 @@ EOL
 
 installBlockExplorer () {
     echo "Installing Block Explorer..."
-    git clone https://github.com/blockchain-gold/bxg-explorer.git /home/explorer/blockexplorer
-    cd /home/explorer/blockexplorer
+    git clone https://github.com/blockchain-gold/bxg-explorer.git /home/bxg/blockexplorer
+    cd /home/bxg/blockexplorer
     yarn install
-    cat > /home/explorer/blockexplorer/config.js << EOL
+    cat > /home/bxg/blockexplorer/config.js << EOL
 const config = {
   'api': {
     'host': 'https://explorer.blockchaingold.games',
@@ -151,11 +151,11 @@ EOL
     nodejs ./cron/rich.js
     clear
     cat > mycron << EOL
-*/1 * * * * cd /home/explorer/blockexplorer && ./script/cron_block.sh >> ./tmp/block.log 2>&1
-*/1 * * * * cd /home/explorer/blockexplorer && /usr/bin/nodejs ./cron/masternode.js >> ./tmp/masternode.log 2>&1
-*/1 * * * * cd /home/explorer/blockexplorer && /usr/bin/nodejs ./cron/peer.js >> ./tmp/peer.log 2>&1
-*/1 * * * * cd /home/explorer/blockexplorer && /usr/bin/nodejs ./cron/rich.js >> ./tmp/rich.log 2>&1
-*/5 * * * * cd /home/explorer/blockexplorer && /usr/bin/nodejs ./cron/coin.js >> ./tmp/coin.log 2>&1
+*/1 * * * * cd /home/bxg/blockexplorer && ./script/cron_block.sh >> ./tmp/block.log 2>&1
+*/1 * * * * cd /home/bxg/blockexplorer && /usr/bin/nodejs ./cron/masternode.js >> ./tmp/masternode.log 2>&1
+*/1 * * * * cd /home/bxg/blockexplorer && /usr/bin/nodejs ./cron/peer.js >> ./tmp/peer.log 2>&1
+*/1 * * * * cd /home/bxg/blockexplorer && /usr/bin/nodejs ./cron/rich.js >> ./tmp/rich.log 2>&1
+*/5 * * * * cd /home/bxg/blockexplorer && /usr/bin/nodejs ./cron/coin.js >> ./tmp/coin.log 2>&1
 EOL
     crontab mycron
     rm -f mycron
@@ -182,16 +182,16 @@ sleep 5s
 clear
 
 # Check for blockexplorer folder, if found then update, else install.
-if [ ! -d "/home/explorer/blockexplorer" ]
+if [ ! -d "/home/bxg/blockexplorer" ]
 then
     installNginx
     installMongo
-    installBulwark
+    installWallet
     installNodeAndYarn
     installBlockExplorer
     echo "Finished installation!"
 else
-    cd /home/explorer/blockexplorer
+    cd /home/bxg/blockexplorer
     git pull
     pm2 restart index
     echo "Block Explorer updated!"
