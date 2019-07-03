@@ -3,7 +3,7 @@ import Actions from './core/Actions';
 import Component from './core/Component';
 import { connect } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
-import { isAddress, isBlock, isTX } from '../lib/blockchain';
+import { isAddress, isBlock, isTx } from '../lib/blockchain';
 import { Link, Route, Switch } from 'react-router-dom';
 import promise from 'bluebird';
 import PropTypes from 'prop-types';
@@ -133,7 +133,7 @@ class App extends Component
   handleSearch = (term) =>
   {
     // If term doesn't match then ignore.
-    if (!isTX(term) && !isBlock(term) && !isAddress(term))
+    if (!isTx(term) && !isBlock(term) && !isAddress(term))
     {
       return;
     }

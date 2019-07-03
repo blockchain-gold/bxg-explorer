@@ -8,11 +8,11 @@ import Card from './Card';
 
 const CardEarnings = ({ coin }) =>
 {
-  const subsidy = blockchain.getMNSubsidy(coin.blocks, coin.mnsOn, coin.supply);
-  const day = blockchain.getMNBlocksPerDay(coin.mnsOn) * subsidy;
-  const week = blockchain.getMNBlocksPerWeek(coin.mnsOn) * subsidy;
-  const month = blockchain.getMNBlocksPerMonth(coin.mnsOn) * subsidy;
-  const year = blockchain.getMNBlocksPerYear(coin.mnsOn) * subsidy;
+  const subsidy = blockchain.getMnSubsidy(coin.blocks, coin.mnsOn, coin.supply);
+  const day = blockchain.getMnBlocksPerDay(coin.mnsOn) * subsidy;
+  const week = blockchain.getMnBlocksPerWeek(coin.mnsOn) * subsidy;
+  const month = blockchain.getMnBlocksPerMonth(coin.mnsOn) * subsidy;
+  const year = blockchain.getMnBlocksPerYear(coin.mnsOn) * subsidy;
 
   const nbtc = v => numeral(v).format('0,0.0000');
   const nusd = v => numeral(v).format('$0,0.00');

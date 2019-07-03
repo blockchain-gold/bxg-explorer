@@ -18,7 +18,7 @@ const config = {
   },
   rpc: {
     host: '127.0.0.1',
-    port: '13412',
+    port: '13512',
     user: 'blockchaingoldrpc',
     pass: 'someverysafereallystrongpassword',
     timeout: 8000, // 8 seconds
@@ -32,11 +32,11 @@ const config = {
     api: 'https://extreme-ip-lookup.com/json/'
   },
   coinMarketCap: {
-    api: 'http://api.coinmarketcap.com/v1/ticker/',
+    //api: 'http://api.coinmarketcap.com/v1/ticker/',
     // 'ticker': 'bxg'
   },
   slack: {
-    url: 'https://hooks.slack.com/services/A00000000/B00000000/somekindofhashhere',
+    //url: 'https://hooks.slack.com/services/A00000000/B00000000/somekindofhashhere',
     //'channel': '#general',
     //'username': 'Block Report',
     //'icon_emoji': ':bwk:'

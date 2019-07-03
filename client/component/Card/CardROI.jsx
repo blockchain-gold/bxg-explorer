@@ -10,8 +10,8 @@ const CardROI = ({ coin, supply }) =>
 {
   const mncoins = blockchain.mncoins;
   const mns = coin.mnsOff + coin.mnsOn;
-  const subsidy = blockchain.getMNSubsidy(coin.blocks, mns, coin.supply);
-  const roi = blockchain.getROI(subsidy, coin.mnsOn);
+  const subsidy = blockchain.getMnSubsidy(coin.blocks, mns, coin.supply);
+  const roi = blockchain.getRoi(subsidy, coin.mnsOn);
 
   return (
     <Card>
